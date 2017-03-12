@@ -29,7 +29,7 @@ namespace Coda.Data.Sql
         {
             var nullableBaseType = Nullable.GetUnderlyingType(property.PropertyType);
             var baseType = nullableBaseType ?? property.PropertyType;
-            return (!_mappableTypes.Contains(baseType) && !baseType.IsEnum);
+            return (_mappableTypes.Contains(baseType) || baseType.IsEnum);
         }
 
         public void Initialise(string tableName, bool deepProperties = true)
@@ -38,7 +38,9 @@ namespace Coda.Data.Sql
 
             // Dynamically construct a datatable and force name-based column mapping
             InternalTable = new DataTable();
-            var properties = deepProperties ? typeof(TTableType).GetProperties() : typeof(TTableType).GetProperties(BindingFlags.DeclaredOnly);
+            var properties = deepProperties ?
+                typeof(TTableType).GetProperties() :
+                typeof(TTableType).GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance);
             foreach (var property in properties)
             {
                 var nullableBaseType = Nullable.GetUnderlyingType(property.PropertyType);
