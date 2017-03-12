@@ -17,10 +17,10 @@ namespace Coda.Data.Sql
             typeof(DateTime), typeof(DateTimeOffset), typeof(float), typeof(byte)
         };
 
-        public SqlBulkCopier(SqlConnection db, string tableName)
+        public SqlBulkCopier(SqlConnection db, string tableName, bool deepProperties = true)
         {
             BulkCopy = new SqlBulkCopy(db);
-            Initialise(tableName);
+            Initialise(tableName, deepProperties);
         }
 
         protected virtual bool IsMappable(PropertyInfo property)
@@ -30,13 +30,13 @@ namespace Coda.Data.Sql
             return (!_mappableTypes.Contains(baseType) && !baseType.IsEnum);
         }
 
-        public void Initialise(string tableName)
+        public void Initialise(string tableName, bool deepProperties = true)
         {
             BulkCopy.DestinationTableName = tableName;
 
             // Dynamically construct a datatable and force name-based column mapping
             InternalTable = new DataTable();
-            var properties = typeof(TTableType).GetProperties();
+            var properties = deepProperties ? typeof(TTableType).GetProperties() : typeof(TTableType).GetProperties(BindingFlags.DeclaredOnly);
             foreach (var property in properties)
             {
                 var nullableBaseType = Nullable.GetUnderlyingType(property.PropertyType);
