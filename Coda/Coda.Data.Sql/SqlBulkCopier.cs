@@ -9,6 +9,7 @@ namespace Coda.Data.Sql
 {
     public class SqlBulkCopier<TTableType> : ISqlBulkCopier, IDisposable
     {
+        public SqlConnection Connection { get; set; }
         public SqlBulkCopy BulkCopy { get; set; }
         public DataTable InternalTable { get; set; }
 
@@ -19,6 +20,7 @@ namespace Coda.Data.Sql
 
         public SqlBulkCopier(SqlConnection db, string tableName, bool deepProperties = true)
         {
+            Connection = db;
             BulkCopy = new SqlBulkCopy(db);
             Initialise(tableName, deepProperties);
         }
@@ -78,11 +80,17 @@ namespace Coda.Data.Sql
 
         public void WriteToServer()
         {
+            if (Connection.State != ConnectionState.Open)
+                Connection.Open();
+
             BulkCopy.WriteToServer(InternalTable);
         }
 
         public async Task WriteToServerAsync()
         {
+            if (Connection.State != ConnectionState.Open)
+                Connection.Open();
+
             await BulkCopy.WriteToServerAsync(InternalTable);
         }
 

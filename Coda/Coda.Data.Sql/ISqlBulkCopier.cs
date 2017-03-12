@@ -7,6 +7,7 @@ namespace Coda.Data.Sql
 {
     public interface ISqlBulkCopier : IDisposable
     {
+        SqlConnection Connection { get; set; }
         SqlBulkCopy BulkCopy { get; set; }
         DataTable InternalTable { get; set; }
         void AddRows(params object[] rows);
