@@ -41,7 +41,7 @@ namespace Coda.Data.Sql
                 HasCreatedTempInTxn = true;
             }
 
-            Connection.Execute("TRUNCATE TABLE #Ids");
+            Connection.Execute("TRUNCATE TABLE #Ids", transaction: Transaction);
 
             var dataTable = new DataTable();
             dataTable.Columns.Add("Id", typeof(int));
@@ -56,14 +56,32 @@ namespace Coda.Data.Sql
         {
             if (!HasCreatedTempInTxn) return;
 
-            Connection.Execute("DROP TABLE #Ids");
+            Connection.Execute("DROP TABLE #Ids", transaction: Transaction);
         }
 
-        // Query Bulk
-        public IEnumerable<TResultType> QueryBulk<TResultType>(string query, params int[] ids)
+        /// <summary>
+        /// Executes a bulk query, returning the data typed as per T
+        /// </summary>
+        /// <typeparam name="TResultType"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public IEnumerable<TResultType> QueryBulk<TResultType>(string query, int[] ids, object param = null)
         {
             CreateTempWithIds(ids);
-            return Connection.Query<TResultType>(query, transaction: Transaction);
+            return Connection.Query<TResultType>(query, param, transaction: Transaction);
+        }
+
+        /// <summary>
+        /// Executes a bulk query, returning the data typed dynamically with properties matching the columns
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public IEnumerable<dynamic> QueryBulk(string query, int[] ids, object param = null)
+        {
+            CreateTempWithIds(ids);
+            return Connection.Query(query, param, transaction: Transaction);
         }
 
         public void Dispose()
