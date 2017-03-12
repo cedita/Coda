@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="BulkLoader.cs" />
     <Compile Include="DapperLike\BulkExtensions.cs" />
+    <Compile Include="ISqlBulkCopier.cs" />
     <Compile Include="SqlBulkCopier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

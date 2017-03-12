@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Coda.Data.Sql
 {
-    public class SqlBulkCopier<TTableType> : IDisposable
+    public class SqlBulkCopier<TTableType> : ISqlBulkCopier, IDisposable
     {
         public SqlBulkCopy BulkCopy { get; set; }
         public DataTable InternalTable { get; set; }
@@ -68,6 +68,12 @@ namespace Coda.Data.Sql
         {
             foreach (var row in rows)
                 AddRow(row);
+        }
+
+        public void AddRows(params object[] rows)
+        {
+            foreach (var row in rows)
+                AddRow((TTableType)row);
         }
 
         public void WriteToServer()
