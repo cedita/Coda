@@ -1,4 +1,6 @@
-﻿using Dapper;
+﻿// Copyright (c) Cedita Digital Ltd. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE in the solution root for license information.
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,49 +17,9 @@ namespace Coda.Data.Sql
     /// 
     /// Queries used should pull from #Ids and perform necessary joins from within
     /// </summary>
-    public class BulkLoader : IDisposable
+    public class BulkLoader : IdHolderTransaction
     {
-        protected SqlConnection Connection { get; set; }
-        protected SqlTransaction Transaction { get; set; }
-
-        protected bool HasCreatedTempInTxn = false;
-
-        public BulkLoader(SqlConnection db)
-        {
-            if (db.State != ConnectionState.Open)
-                db.Open();
-
-            Connection = db;
-        }
-
-        protected void CreateTempWithIds(params int[] ids)
-        {
-            if (!HasCreatedTempInTxn)
-            {
-                Connection.Execute(
-                    "CREATE TABLE #Ids (Id INT NOT NULL PRIMARY KEY CLUSTERED)",
-                    transaction: Transaction);
-
-                HasCreatedTempInTxn = true;
-            }
-
-            Connection.Execute("TRUNCATE TABLE #Ids", transaction: Transaction);
-
-            var dataTable = new DataTable();
-            dataTable.Columns.Add("Id", typeof(int));
-            foreach (var id in ids)
-                dataTable.Rows.Add(id);
-
-            new SqlBulkCopy(Connection, SqlBulkCopyOptions.Default, Transaction) { DestinationTableName = "#Ids" }
-                .WriteToServer(dataTable);
-        }
-
-        protected void DropTable()
-        {
-            if (!HasCreatedTempInTxn) return;
-
-            Connection.Execute("DROP TABLE #Ids", transaction: Transaction);
-        }
+        public BulkLoader(SqlConnection db) : base(db) { }
 
         /// <summary>
         /// Executes a bulk query, returning the data typed as per T
@@ -82,13 +44,6 @@ namespace Coda.Data.Sql
         {
             CreateTempWithIds(ids);
             return Connection.Query(query, param, transaction: Transaction);
-        }
-
-        public void Dispose()
-        {
-            DropTable();
-            Transaction?.Rollback();
-            Transaction?.Dispose();
         }
     }
 }

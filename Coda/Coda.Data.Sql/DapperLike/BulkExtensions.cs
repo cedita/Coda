@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) Cedita Digital Ltd. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE in the solution root for license information.
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace Coda.Data.Sql.DapperLike
 {
     public static class BulkExtensions
     {
-
         /// <summary>
         /// Executes a bulk query, returning the data typed as per T
         /// </summary>

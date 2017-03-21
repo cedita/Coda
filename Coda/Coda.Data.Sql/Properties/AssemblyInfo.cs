@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿// Copyright (c) Cedita Digital Ltd. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE in the solution root for license information.
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -32,5 +34,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.1.0.6")]
-[assembly: AssemblyFileVersion("0.1.0.6")]
+[assembly: AssemblyVersion("0.1.0.10")]
+[assembly: AssemblyFileVersion("0.1.0.10")]
