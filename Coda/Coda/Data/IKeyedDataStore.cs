@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Cedita Digital Ltd. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the solution root for license information.
+
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace Coda.Data
         where TKey : IEquatable<TKey>
     {
         Task<TKey> GetIdAsync(TData dataObj, CancellationToken cancellationToken);
+
         Task<TData> FindByIdAsync(TKey dataId, CancellationToken cancellationToken);
     }
 }

@@ -1,11 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coda", "Coda\Coda.csproj", "{9DB52864-CEA9-4F55-9E9E-80CAC0427610}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coda.Data.Sql", "Coda.Data.Sql\Coda.Data.Sql.csproj", "{837E7A4A-0ACB-4D04-BD91-E45FA7A04C2E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{12D01DDA-8FAC-4B5C-816F-4020FADAC2B1}"
+	ProjectSection(SolutionItems) = preProject
+		Cedita.ruleset = Cedita.ruleset
+		Stylecop.json = Stylecop.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

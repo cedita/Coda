@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Cedita Digital Ltd. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the solution root for license information.
+
 using System;
 
 namespace Coda.Operations
@@ -10,15 +11,17 @@ namespace Coda.Operations
     public class OperationError
     {
         /// <summary>
-        /// The Code that represents this error.
+        /// Gets or sets the Code that represents this error.
         /// </summary>
         public virtual string Code { get; set; }
+
         /// <summary>
-        /// The Message for this error.
+        /// Gets or sets the Message for this error.
         /// </summary>
         public virtual string Message { get; set; }
+
         /// <summary>
-        /// The Exception (if any) for this error.
+        /// Gets or sets the Exception (if any) for this error.
         /// </summary>
         public virtual Exception Exception { get; set; }
     }

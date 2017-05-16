@@ -1,0 +1,24 @@
+{
+  "settings": {
+    "documentationRules": {
+      "companyName": "Cedita Digital Ltd",
+      "copyrightText": "Copyright (c) {companyName}. All rights reserved.\r\nLicensed under the {licenseName} license. See {licenseFile} in the solution root for license information.",
+
+      "documentInterfaces": true,
+      "documentInternalElements": false,
+      "documentExposedElements": true,
+
+      "documentationCulture": "en-GB",
+
+      "variables": {
+        "licenseName": "Apache 2.0 License",
+        "licenseFile": "LICENSE"
+      },
+
+      "xmlHeader": false
+    },
+    "orderingRules": {
+      "usingDirectivesPlacement": "preserve"
+    }
+  }
+}

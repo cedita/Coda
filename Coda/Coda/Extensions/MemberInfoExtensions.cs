@@ -15,7 +15,10 @@ namespace Coda.Extensions
         /// <returns>Name from DisplayAttribute, or field name if no attribute.</returns>
         public static string GetDisplayName(this MemberInfo memberInfo)
         {
-            if (memberInfo == null) throw new ArgumentNullException(nameof(memberInfo));
+            if (memberInfo == null)
+            {
+                throw new ArgumentNullException(nameof(memberInfo));
+            }
 
             var attr = memberInfo.GetCustomAttribute<DisplayAttribute>(false);
             if (attr != null)

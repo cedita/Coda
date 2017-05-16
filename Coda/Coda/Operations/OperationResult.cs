@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Cedita Digital Ltd. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the solution root for license information.
+
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,24 +11,21 @@ namespace Coda.Operations
     /// </summary>
     public class OperationResult
     {
+        public static readonly OperationResult Success = new OperationResult { Succeeded = true };
+
+        private List<OperationError> errors = new List<OperationError>();
+
         /// <summary>
-        /// Flag indicating whether the operation was successful.
+        /// Gets or sets a value indicating whether the operation was successful.
         /// </summary>
         /// <value>True if the operation succeeded, false otherwise.</value>
         public bool Succeeded { get; set; }
 
-        private static readonly OperationResult _success = new OperationResult { Succeeded = true };
         /// <summary>
-        /// Returns an <see cref="OperationResult"/> indicating a successful operation.
-        /// </summary>
-        public static OperationResult Success => _success;
-
-        private List<OperationError> _errors = new List<OperationError>();
-        /// <summary>
-        /// Returns an <see cref="IEnumerable{T}"/> of <see cref="OperationError"/>s containing any errors that
+        /// Gets an <see cref="IEnumerable{T}"/> of <see cref="OperationError"/>s containing any errors that
         /// occurred during the operation.
         /// </summary>
-        public IEnumerable<OperationError> Errors => _errors;
+        public IEnumerable<OperationError> Errors => errors;
 
         /// <summary>
         /// Create an instance of <see cref="OperationResult"/> representing a failed operation with a list of
@@ -39,7 +37,10 @@ namespace Coda.Operations
         {
             var result = new OperationResult { Succeeded = false };
             if (errors != null)
-                result._errors.AddRange(errors);
+            {
+                result.errors.AddRange(errors);
+            }
+
             return result;
         }
 
@@ -48,7 +49,7 @@ namespace Coda.Operations
         /// </summary>
         /// <returns>A string representation of the current <see cref="OperationResult"/> object.</returns>
         /// <remarks>
-        /// If the operation was successful the ToString() will return "Succeeded" otherwise it returned 
+        /// If the operation was successful the ToString() will return "Succeeded" otherwise it returned
         /// "Failed: " followed by a comma delimited list of error codes from its <see cref="Errors"/> collection, if any.
         /// </remarks>
         public override string ToString()

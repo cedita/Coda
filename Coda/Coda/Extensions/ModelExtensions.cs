@@ -1,8 +1,9 @@
 ﻿// Copyright (c) Cedita Digital Ltd. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the solution root for license information.
-using Coda.Reflection;
+
 using System.Linq;
 using System.Reflection;
+using Coda.Reflection;
 
 namespace Coda.Extensions
 {
@@ -14,7 +15,7 @@ namespace Coda.Extensions
         /// <example>
         /// This sample shows how to use <see cref="ValuesFrom{T}(T, T, string[])"/> to copy specific property values specified in
         /// <paramref name="properties"/> from one model to another.
-        /// 
+        ///
         /// <code>
         /// user.ValuesFrom(model,
         ///    nameof(model.Title),
@@ -38,7 +39,7 @@ namespace Coda.Extensions
         /// <example>
         /// This sample shows how to use <see cref="ValuesFrom{T}(T, T, bool, string[])"/> to copy all values excluding <paramref name="properties"/>
         /// from one model to another.
-        /// 
+        ///
         /// <code>
         /// user.ValuesFrom(model, true,
         ///    nameof(model.DoNotCopyMe)
@@ -59,7 +60,11 @@ namespace Coda.Extensions
             var type = typeof(T);
             var allProperties = !isExclusionList ? properties : type.GetProperties().Where(m => !properties.Contains(m.Name)).Select(m => m.Name);
 #endif
-            if (allProperties == null || allProperties.Count() == 0) return;
+            if (allProperties == null || allProperties.Count() == 0)
+            {
+                return;
+            }
+
             foreach (var property in properties)
             {
                 var newVal = PropertyHelpers.GetProperty(sourceObject, property);
