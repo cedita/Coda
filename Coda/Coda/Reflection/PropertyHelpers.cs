@@ -10,7 +10,11 @@ namespace Coda.Reflection
     {
         public static PropertyInfo GetProperty(object obj, string propName)
         {
+#if NETSTANDARD1_4
             return obj.GetType().GetTypeInfo().DeclaredProperties.Where(m => m.Name == propName).FirstOrDefault();
+#else
+            return obj.GetType().GetProperty(propName);
+#endif
         }
 
         public static Type GetPropertyType(object obj, string propName)

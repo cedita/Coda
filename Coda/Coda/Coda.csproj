@@ -1,11 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>netstandard1.4</TargetFramework>
+    <PackageId>Coda</PackageId>
+    <PackageTags>helpers,coda,cedita</PackageTags>
+    <Title>Coda</Title>
+    <Authors>Cedita Ltd;Cedita Digital Ltd;Rudi Visser;Lee Turver</Authors>
+    <Company>Cedita Ltd</Company>
+    <TargetFrameworks>net45;netstandard1.4</TargetFrameworks>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
-
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net451'">
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.4'">
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.3.0" />
   </ItemGroup>
-
 </Project>

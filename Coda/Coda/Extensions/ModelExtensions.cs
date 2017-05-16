@@ -52,8 +52,13 @@ namespace Coda.Extensions
         /// <param name="properties">Properties to include or exclude from the copy</param>
         public static void ValuesFrom<T>(this T targetObject, T sourceObject, bool isExclusionList, params string[] properties)
         {
+#if NETSTANDARD1_4
             var type = typeof(T).GetTypeInfo();
             var allProperties = !isExclusionList ? properties : type.DeclaredProperties.Where(m => !properties.Contains(m.Name)).Select(m => m.Name);
+#else
+            var type = typeof(T);
+            var allProperties = !isExclusionList ? properties : type.GetProperties().Where(m => !properties.Contains(m.Name)).Select(m => m.Name);
+#endif
             if (allProperties == null || allProperties.Count() == 0) return;
             foreach (var property in properties)
             {
