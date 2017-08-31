@@ -8,6 +8,12 @@ namespace Coda.Extensions
 {
     public static class TypeExtensions
     {
+        /// <summary>
+        /// Get a Field from a Type (or, recursively its subtypes) of a given name.
+        /// </summary>
+        /// <param name="type">Type to work with</param>
+        /// <param name="fieldName">Name of Field</param>
+        /// <returns>Field found on type</returns>
         public static FieldInfo GetField(this Type type, string fieldName)
         {
             if (type == null || string.IsNullOrEmpty(fieldName))

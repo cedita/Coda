@@ -80,5 +80,11 @@ namespace Coda.Data
         /// </summary>
         /// <returns>Task Result</returns>
         Task SaveChangesAsync();
+
+        /// <summary>
+        /// Attach an object to the context.
+        /// </summary>
+        /// <param name="obj">Object to attach</param>
+        void Attach(object obj);
     }
 }
