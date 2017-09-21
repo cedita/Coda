@@ -1,5 +1,4 @@
-﻿
-namespace Coda.Http
+﻿namespace Coda.Http
 {
     public enum TransportOverrides
     {

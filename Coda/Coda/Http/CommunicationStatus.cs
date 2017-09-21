@@ -1,4 +1,5 @@
-﻿namespace Coda.Http
+﻿
+namespace Coda.Http
 {
     /// <summary>
     /// Status of the Communication that was just sent
