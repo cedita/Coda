@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Coda.Http
 {
@@ -11,18 +10,13 @@ namespace Coda.Http
         string AuthenticationKey { get; set; }
 
         /// <summary>
-        /// Service Name
+        /// The target url for the request.
         /// </summary>
-        string ServiceName { get; set; }
+        string BaseUrl { get; set; }
 
         /// <summary>
         /// Request Timeout
         /// </summary>
         TimeSpan RequestTimeout { get; set; }
-
-        /// <summary>
-        /// Overrides for the individual transports if any are defined
-        /// </summary>
-        Dictionary<int, object> TransportOverrides { get; set; }
     }
 }

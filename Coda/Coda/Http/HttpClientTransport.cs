@@ -7,21 +7,21 @@ namespace Coda.Http
 {
     internal class HttpClientTransport : IDisposable
     {
-        protected HttpClient HttpClient { get; set; }
+        public HttpClientTransport() => HttpClient = new HttpClient();
 
-        public HttpClientTransport()
-        {
-            HttpClient = new HttpClient();
-        }
+        protected HttpClient HttpClient { get; set; }
 
         public void SetTimeout(TimeSpan timeout)
         {
             HttpClient.Timeout = timeout;
         }
 
-        public void SetBearerToken(string token)
+        public void SetBearerToken(string token = null)
         {
-            HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            if (token != null)
+            {
+                HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
         }
 
         public void SetUri(Uri uri)
@@ -37,9 +37,10 @@ namespace Coda.Http
         public async Task<HttpResponseMessage> MakeRequest(HttpClientMethod method, string apiEndpoint, object requestObject = null)
         {
             var jsonString = requestObject == null ? null : Newtonsoft.Json.JsonConvert.SerializeObject(requestObject);
-            var jsonContent = new StringContent(jsonString ?? "", System.Text.Encoding.UTF8, "application/json");
+            var jsonContent = new StringContent(jsonString ?? string.Empty, System.Text.Encoding.UTF8, "application/json");
 
             Func<HttpClient, Task<HttpResponseMessage>> requestTask = null;
+
             switch(method)
             {
                 case HttpClientMethod.Get:

@@ -18,34 +18,7 @@ namespace Coda.Http
         {
             HttpClientTransport.SetTimeout(configuration.RequestTimeout);
             HttpClientTransport.SetBearerToken(configuration.AuthenticationKey);
-
-            // Handle any supported overrides
-            if (configuration.TransportOverrides?.ContainsKey((int)TransportOverrides.BaseUrl) ?? false)
-            {
-                HttpClientTransport.SetUri((string)configuration.TransportOverrides[(int)TransportOverrides.BaseUrl]);
-            }
-        }
-
-        /// <summary>
-        /// Sends a CRUD Request using the appropriate HTTP Verbage to the Remote
-        /// </summary>
-        /// <remarks>
-        /// In <see cref="TransportCrudMethod.Read"/> or <see cref="TransportCrudMethod.Delete"/> modes the <paramref name="request"/> is converted
-        /// to a string (via .ToString()) and sent up in the URL
-        /// </remarks>
-        /// <typeparam name="TObject">Request Type</typeparam>
-        /// <typeparam name="TResponse"> Response Type</typeparam>
-        /// <param name="method">CRUD Method</param>
-        /// <param name="objectName">Object Name</param>
-        /// <param name="request">Request Object</param>
-        /// <returns>Wrapped Result from Transport</returns>
-        public async Task<CommunicationResult<TResponse>> CrudRequestAsync<TObject, TResponse>(TransportCrudMethod method, string objectName, TObject request)
-        {
-            var httpClientMethod = (HttpClientMethod)method;
-            var requestObjectToUri = method == TransportCrudMethod.Read || method == TransportCrudMethod.Delete;
-            var apiUri = GetApiUri(true, objectName, requestObjectToUri ? (object)request : null);
-
-            return await InternalRequest<TResponse>(httpClientMethod, apiUri, requestObjectToUri ? null : (object)request).ConfigureAwait(false);
+            HttpClientTransport.SetUri(configuration.BaseUrl);
         }
 
         /// <summary>
@@ -84,19 +57,23 @@ namespace Coda.Http
         {
             var returnResult = new CommunicationResult<TResponse>
             {
-                DateSent = DateTime.Now
+                DateSent = DateTime.Now,
             };
+
             try
             {
                 var response = await HttpClientTransport.MakeRequest(method, apiUrl, requestObj).ConfigureAwait(false);
                 string responseContentString = null;
+
                 if (response.Content.Headers.ContentLength > 0)
                 {
                     responseContentString = await response.Content.ReadAsStringAsync().ConfigureAwait(false); // Read this regardless of response
                 }
+
                 if (response.IsSuccessStatusCode)
                 {
                     returnResult.Status = CommunicationStatus.Success;
+
                     // Don't wrap this, if it throws it will (rightfully) fall to ClientError
                     if (typeof(TResponse) == typeof(string))
                     {
@@ -114,6 +91,7 @@ namespace Coda.Http
                     returnResult.Exception = GetRemoteException(response.StatusCode, response.ReasonPhrase, response.Headers, responseContentString);
                 }
             }
+
             // Catch timeouts specifically
             catch (TaskCanceledException ex)
             {
@@ -138,12 +116,8 @@ namespace Coda.Http
             {
                 returnResult.DateReturned = DateTime.Now;
             }
-            return returnResult;
-        }
 
-        protected string GetApiUri(bool objectCrud, string apiName, object requestObj = null)
-        {
-            return (objectCrud ? "obj/" : "") + apiName + (requestObj != null ? $"/{requestObj}" : "");
+            return returnResult;
         }
 
         protected Exception GetRemoteException(HttpStatusCode statusCode, string statusReason, HttpResponseHeaders headers, string remoteMessage)
