@@ -14,51 +14,10 @@ namespace Coda.Data.Sql
     /// 
     /// Queries ran against this should use #Ids
     /// </summary>
-    public class IdHolderTransaction : IDisposable
+    public class IdHolderTransaction : IdHolderTable, IDisposable
     {
-        public SqlConnection Connection { get; set; }
-        public SqlTransaction Transaction { get; set; }
-
-        public string TemporaryTableName { get; set; } = "#Ids";
-
-        protected bool HasCreatedTempInTxn = false;
-
-        public IdHolderTransaction(SqlConnection db)
+        public IdHolderTransaction(SqlConnection db, SqlTransaction SqlTransaction = null) : base(db, SqlTransaction)
         {
-            if (db.State != ConnectionState.Open)
-                db.Open();
-
-            Connection = db;
-            Transaction = db.BeginTransaction();
-        }
-
-        public void CreateTempWithIds(IEnumerable<int> ids)
-        {
-            if (!HasCreatedTempInTxn)
-            {
-                Connection.Execute(
-                    $"CREATE TABLE {TemporaryTableName} (Id INT NOT NULL PRIMARY KEY CLUSTERED)",
-                    transaction: Transaction);
-
-                HasCreatedTempInTxn = true;
-            }
-
-            Connection.Execute($"TRUNCATE TABLE {TemporaryTableName}", transaction: Transaction);
-
-            var dataTable = new DataTable();
-            dataTable.Columns.Add("Id", typeof(int));
-            foreach (var id in ids)
-                dataTable.Rows.Add(id);
-
-            new SqlBulkCopy(Connection, SqlBulkCopyOptions.Default, Transaction) { DestinationTableName = TemporaryTableName }
-                .WriteToServer(dataTable);
-        }
-
-        public void DropTable()
-        {
-            if (!HasCreatedTempInTxn) return;
-
-            Connection.Execute($"DROP TABLE {TemporaryTableName}", transaction: Transaction);
         }
 
         public void Dispose()

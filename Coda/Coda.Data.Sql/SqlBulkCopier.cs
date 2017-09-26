@@ -12,16 +12,17 @@ namespace Coda.Data.Sql
         public SqlConnection Connection { get; set; }
         public SqlBulkCopy BulkCopy { get; set; }
         public DataTable InternalTable { get; set; }
+        public SqlTransaction Transaction { get; set; }
 
         private readonly Type[] _mappableTypes = new[] {
             typeof(int), typeof(decimal), typeof(double), typeof(string), typeof(bool), typeof(Guid),
             typeof(DateTime), typeof(DateTimeOffset), typeof(float), typeof(byte)
         };
 
-        public SqlBulkCopier(SqlConnection db, string tableName, bool deepProperties = true)
+        public SqlBulkCopier(SqlConnection db, string tableName, bool deepProperties = true, SqlTransaction Transaction = null)
         {
             Connection = db;
-            BulkCopy = new SqlBulkCopy(db);
+            BulkCopy = new SqlBulkCopy(db, SqlBulkCopyOptions.Default, Transaction);
             Initialise(tableName, deepProperties);
         }
 
