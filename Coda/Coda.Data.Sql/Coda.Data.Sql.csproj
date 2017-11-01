@@ -44,8 +44,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BulkLoader.cs" />
+    <Compile Include="BulkLoader{TIdType}.cs" />
     <Compile Include="DapperLike\BulkExtensions.cs" />
     <Compile Include="IdHolderTable.cs" />
+    <Compile Include="IdHolderTable{TIdType}.cs" />
+    <Compile Include="IdHoldingTransaction{TIdType}.cs" />
     <Compile Include="IdHoldingTransaction.cs" />
     <Compile Include="ISqlBulkCopier.cs" />
     <Compile Include="SqlBulkCopier.cs" />

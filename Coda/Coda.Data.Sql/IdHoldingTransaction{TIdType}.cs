@@ -10,11 +10,15 @@ namespace Coda.Data.Sql
     /// 
     /// Queries ran against this should use #Ids
     /// </summary>
-    [Obsolete("Use generic version of IdHoldingTransaction instead.")]
-    public class IdHolderTransaction : IdHolderTransaction<int>
+    public class IdHolderTransaction<TIdType> : IdHolderTable<TIdType>, IDisposable
     {
         public IdHolderTransaction(SqlConnection db, SqlTransaction SqlTransaction = null) : base(db, SqlTransaction)
         {
+        }
+
+        public void Dispose()
+        {
+            Transaction?.Dispose();
         }
     }
 }

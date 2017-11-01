@@ -9,7 +9,7 @@ namespace Coda.Extensions
     public static class MemberInfoExtensions
     {
         /// <summary>
-        /// Get a visible name from a FieldInfo'ss <see cref="DisplayAttribute"/> attribute, or the field's name if not present.
+        /// Get a visible name from a FieldInfo's <see cref="DisplayAttribute"/> attribute, or the field's name if not present.
         /// </summary>
         /// <param name="memberInfo">FieldInfo instance</param>
         /// <returns>Name from DisplayAttribute, or field name if no attribute.</returns>
