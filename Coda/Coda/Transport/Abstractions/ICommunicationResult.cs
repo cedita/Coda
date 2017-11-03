@@ -1,4 +1,4 @@
-﻿namespace Coda.Http
+﻿namespace Coda.Transport.Abstractions
 {
     public interface ICommunicationResult
     {

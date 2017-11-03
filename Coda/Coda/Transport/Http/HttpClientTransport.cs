@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace Coda.Http
+namespace Coda.Transport.Http
 {
     internal class HttpClientTransport : IDisposable
     {
@@ -41,7 +41,7 @@ namespace Coda.Http
 
             Func<HttpClient, Task<HttpResponseMessage>> requestTask = null;
 
-            switch(method)
+            switch (method)
             {
                 case HttpClientMethod.Get:
                     requestTask = client => client.GetAsync(apiEndpoint);

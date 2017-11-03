@@ -1,6 +1,7 @@
 ﻿using System;
+using Coda.Transport.Abstractions;
 
-namespace Coda.Http
+namespace Coda.Transport
 {
     /// <summary>
     /// Communication Result for Typed data

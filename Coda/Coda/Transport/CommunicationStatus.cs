@@ -1,4 +1,4 @@
-﻿namespace Coda.Http
+﻿namespace Coda.Transport
 {
     /// <summary>
     /// Status of the Communication that was just sent
@@ -21,20 +21,13 @@
         RemoteError = 2,
 
         /// <summary>
-        /// Polling for a result (no response was received within a certain time limit, and pending permitted)
-        /// 
-        /// *NOTE* Polling to be implemented as a defined method later
-        /// </summary>
-        // Polling = 3,
-
-        /// <summary>
         /// Pending / Polling is not permitted, and no response was received within a certain time limit
         /// </summary>
-        Timeout = 4,
+        Timeout = 3,
 
         /// <summary>
         /// Communication was successful
         /// </summary>
-        Success = 5
+        Success = 4
     }
 }

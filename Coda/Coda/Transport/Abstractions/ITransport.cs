@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Coda.Http
+namespace Coda.Transport.Abstractions
 {
     public interface ITransport : IDisposable
     {

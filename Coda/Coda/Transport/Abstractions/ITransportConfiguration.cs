@@ -1,21 +1,21 @@
 ﻿using System;
 
-namespace Coda.Http
+namespace Coda.Transport.Abstractions
 {
     public interface ITransportConfiguration
     {
         /// <summary>
-        /// Authentication Key for Transport
+        /// Gets or Sets Authentication Key for Transport
         /// </summary>
         string AuthenticationKey { get; set; }
 
         /// <summary>
-        /// The target url for the request.
+        /// Gets or Sets the target url for the request.
         /// </summary>
         string BaseUrl { get; set; }
 
         /// <summary>
-        /// Request Timeout
+        /// Gets or Sets Request Timeout
         /// </summary>
         TimeSpan RequestTimeout { get; set; }
     }

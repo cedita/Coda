@@ -2,17 +2,18 @@
 using System.Net;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Coda.Transport.Abstractions;
 
-namespace Coda.Http
+namespace Coda.Transport.Http
 {
     public class Transport : ITransport, IDisposable
     {
-        internal HttpClientTransport HttpClientTransport { get; set; }
-
         public Transport()
         {
             HttpClientTransport = new HttpClientTransport();
         }
+
+        internal HttpClientTransport HttpClientTransport { get; set; }
 
         public void Configure(ITransportConfiguration configuration)
         {
@@ -43,6 +44,12 @@ namespace Coda.Http
         public async Task<CommunicationResult<TResponse>> RawRequestAsync<TObject, TResponse>(string methodName, TObject request)
         {
             return await InternalRequest<TResponse>(HttpClientMethod.Post, methodName, (object)request);
+        }
+
+        public void Dispose()
+        {
+            HttpClientTransport?.Dispose();
+            HttpClientTransport = null;
         }
 
         /// <summary>
@@ -128,12 +135,6 @@ namespace Coda.Http
             remoteEx.Data.Add("Headers", headers);
             remoteEx.Data.Add("Content", remoteMessage);
             return remoteEx;
-        }
-
-        public void Dispose()
-        {
-            HttpClientTransport?.Dispose();
-            HttpClientTransport = null;
         }
     }
 }
