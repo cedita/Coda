@@ -11,13 +11,13 @@
     <PackageIconUrl>https://www.cedita.com/nuget_coda.png</PackageIconUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://www.github.com/cedita/Coda</RepositoryUrl>
-    <Version>0.3.2.0-pre</Version>
+    <Version>0.3.3.0-pre</Version>
     <Summary>Coda is a set of base classes and interfaces that can be used to build generic applications and components compatible with Cedita applications using a common shared, extensible platform.</Summary>
     <Description>Coda is used by Cedita when creating new applications that follow certain standards of development and practices. Continually updated with new features and bugfixes as necessary, commercially supported from Cedita.</Description>
     <PackageProjectUrl>https://www.github.com/cedita/Coda</PackageProjectUrl>
     <Copyright>Cedita</Copyright>
-    <AssemblyVersion>0.3.2.0</AssemblyVersion>
-    <FileVersion>0.3.2.0</FileVersion>
+    <AssemblyVersion>0.3.3.0</AssemblyVersion>
+    <FileVersion>0.3.3.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
