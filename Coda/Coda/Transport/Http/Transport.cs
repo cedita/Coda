@@ -96,6 +96,19 @@ namespace Coda.Transport.Http
                 {
                     returnResult.Status = CommunicationStatus.RemoteError;
                     returnResult.Exception = GetRemoteException(response.StatusCode, response.ReasonPhrase, response.Headers, responseContentString);
+
+                    if (responseContentString != null)
+                    {
+                        try
+                        {
+                            var deserialized = Newtonsoft.Json.JsonConvert.DeserializeObject<RemoteError>(responseContentString);
+                            returnResult.RemoteError = deserialized;
+                        }
+                        catch
+                        {
+                            /* Swallow, because it might be an actually broken API */
+                        }
+                    }
                 }
             }
 

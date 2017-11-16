@@ -28,6 +28,6 @@
         /// <summary>
         /// Communication was successful
         /// </summary>
-        Success = 4
+        Success = 4,
     }
 }

@@ -35,6 +35,11 @@ namespace Coda.Transport
         public TResponse Data { get; set; }
 
         /// <summary>
+        /// Gets or Sets RemoteError, if any, when the <see cref="Status"/> is <see cref="CommunicationStatus.RemoteError"/>
+        /// </summary>
+        public RemoteError RemoteError { get; set; }
+
+        /// <summary>
         /// Gets or Sets Exception if any, when the <see cref="Status"/> is either <see cref="CommunicationStatus.ClientError"/> or <see cref="CommunicationStatus.RemoteError"/>
         /// </summary>
         public Exception Exception { get; set; }
