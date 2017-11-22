@@ -37,7 +37,7 @@ namespace Coda.Cache
             {
                 foreach(var key in keys)
                 {
-                    cache.Remove(keys);
+                    cache.Remove(key);
                 }
                 cache.Remove(GetCategoryKey(category));
             }
