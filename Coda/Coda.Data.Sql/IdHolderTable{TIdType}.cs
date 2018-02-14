@@ -77,7 +77,15 @@ namespace Coda.Data.Sql
             var type = typeof(TIdType);
             type = Nullable.GetUnderlyingType(type) ?? type;
 
-            return typeMap[type].ToString().ToUpperInvariant();
+            var sqlType = typeMap[type];
+            var sqlTypeStr = sqlType.ToString().ToUpperInvariant();
+            // We need to up the default server resolution of NVARCHAR to a sensible default (50 char)
+            if (sqlType == SqlDbType.NVarChar)
+            {
+                sqlTypeStr += "(50)";
+            }
+
+            return sqlTypeStr;
         }
 
         public void DropTable()
