@@ -8,9 +8,9 @@ For the core framework, install via NuGet.
 
     Install-Package Coda -pre
 
-For Bulk SQL Helpers, install via NuGet. (Note that the `Coda.Data.Sql` package targets the .NET Framework, and `Coda.Data.SqlNs` is recommended)
+For Bulk SQL Helpers, install via NuGet. (Note that the `Coda.Data.Sql` up to version 0.2 targets the .NET Framework, and is re-targeted to .NET Standard 2.0 from 0.3)
 
-    Install-Package Coda.Data.SqlNs -pre
+    Install-Package Coda.Data.Sql -pre
     
 For the ASP.NET Core Tag Helpers and extensions, install via Nuget.
 
