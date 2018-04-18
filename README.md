@@ -3,6 +3,23 @@ Coda provides a base set of extension methods, libraries and interfaces to imple
 
 It used used by [Cedita](https://www.cedita.com/) for assisting in the building of enterprise-level applications.
 
+## Getting Started
+For the core framework, install via NuGet.
+
+    Install-Package Coda -pre
+
+For Bulk SQL Helpers, install via NuGet. (Note that the `Coda.Data.Sql` package targets the .NET Framework, and `Coda.Data.SqlNs` is recommended)
+
+    Install-Package Coda.Data.SqlNs -pre
+    
+For the ASP.NET Core Tag Helpers and extensions, install via Nuget.
+
+    Install-Package Coda.WebCore -pre
+    
+Then, add the following to your `_ViewImports.cshtml` file:
+
+    @addTagHelper *, Coda.WebCore
+
 ## Feature Focus
 ### Repository Pattern
 Whilst the Repository pattern can be frowned upon in some circles, it's still a useful abstraction to make available. Found within `Coda.Data` is `IRepository<TData, TKey>` which can be used to build your repositories on top of that will follow a common interface, with both synchronous and asynchronous methods.
