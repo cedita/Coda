@@ -1,53 +1,40 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Razor.TagHelpers;
-using Microsoft.AspNetCore.Routing;
-using System;
+﻿// Copyright (c) Cedita Ltd. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE in the solution root for license information.
 using System.Linq;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace Coda.WebCore
+namespace Coda.WebCore.TagHelpers
 {
-    [HtmlTargetElement("li", Attributes = _tagAttribute)]
-    public class ActiveListItemTagHelper : TagHelper
+    [HtmlTargetElement("li", Attributes = TagAttribute)]
+    public class ActiveListItemTagHelper : RouteBasedTagHelper
     {
-        const string _tagAttribute = "active-if-*";
+        private const string TagAttribute = "active-if-*";
 
-        readonly IHttpContextAccessor httpContextAccessor;
+        public ActiveListItemTagHelper(IHttpContextAccessor httpContextAccessor)
+            : base(httpContextAccessor)
+        {
+            AddRouteMatch(RouteOption.Area, () => !string.IsNullOrWhiteSpace(ActiveIfArea), () => ActiveIfArea);
+            AddRouteMatch(RouteOption.Controller, () => !string.IsNullOrWhiteSpace(ActiveIfController), () => ActiveIfController);
+            AddRouteMatch(RouteOption.Action, () => !string.IsNullOrWhiteSpace(ActiveIfAction), () => ActiveIfAction);
+            AddRouteMatch(RouteOption.Page, () => !string.IsNullOrWhiteSpace(ActiveIfPage), () => ActiveIfPage);
+        }
+
+        public IfOperatorMode ActiveIfOperator { get; set; } = IfOperatorMode.Or;
+
+        public IfComparisonMode ActiveIfMode { get; set; } = IfComparisonMode.Match;
 
         public string ActiveIfController { get; set; }
-        public string ActiveIfAction { get; set; }
-        public string ActiveIfArea { get; set; }
-        public string ActiveIfPage { get; set; }
 
-        public ActiveListItemTagHelper(IHttpContextAccessor httpContextAccessor) : base()
-        {
-            this.httpContextAccessor = httpContextAccessor;
-        }
+        public string ActiveIfAction { get; set; }
+
+        public string ActiveIfArea { get; set; }
+
+        public string ActiveIfPage { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            var area = httpContextAccessor.HttpContext.GetRouteValue("area") as string;
-            var action = httpContextAccessor.HttpContext.GetRouteValue("action") as string;
-            var controller = httpContextAccessor.HttpContext.GetRouteValue("controller") as string;
-            var page = httpContextAccessor.HttpContext.GetRouteValue("page") as string;
-
-            var match = true;
-
-            if (!string.IsNullOrWhiteSpace(ActiveIfController) && !string.Equals(controller, ActiveIfController, StringComparison.InvariantCultureIgnoreCase))
-            {
-                match = false;
-            }
-            if (!string.IsNullOrWhiteSpace(ActiveIfAction) && !string.Equals(action, ActiveIfAction, StringComparison.InvariantCultureIgnoreCase))
-            {
-                match = false;
-            }
-            if (!string.IsNullOrWhiteSpace(ActiveIfArea) && !string.Equals(area, ActiveIfArea, StringComparison.InvariantCultureIgnoreCase))
-            {
-                match = false;
-            }
-            if (!string.IsNullOrWhiteSpace(ActiveIfPage) && !string.Equals(page, ActiveIfPage, StringComparison.InvariantCultureIgnoreCase))
-            {
-                match = false;
-            }
+            var match = GetComparisonResult(ActiveIfOperator, ActiveIfMode);
 
             if (match)
             {
