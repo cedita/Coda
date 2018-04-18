@@ -18,7 +18,6 @@
     <Summary>Coda - SQL Extensions</Summary>
     <Description>Coda.Data.Sql provides helpers for working with SqlConnections on a bulk basis by providing Bulk Loading / Insertion Capabilities. Continually updated with new features and bugfixes as necessary, commercially supported from Cedita.</Description>
     <PackageProjectUrl>https://www.github.com/cedita/Coda</PackageProjectUrl>
-    <Copyright>Cedita</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
