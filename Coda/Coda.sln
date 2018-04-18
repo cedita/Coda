@@ -13,7 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Stylecop.json = Stylecop.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coda.Cache", "Coda.Cache\Coda.Cache.csproj", "{3A866D75-F94C-44C1-9D62-B27B0486476D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coda.Cache", "Coda.Cache\Coda.Cache.csproj", "{3A866D75-F94C-44C1-9D62-B27B0486476D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coda.Data.SqlNs", "Coda.Data.SqlNs\Coda.Data.SqlNs.csproj", "{D4593789-422C-4D76-A045-A1283989258E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{3A866D75-F94C-44C1-9D62-B27B0486476D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A866D75-F94C-44C1-9D62-B27B0486476D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A866D75-F94C-44C1-9D62-B27B0486476D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4593789-422C-4D76-A045-A1283989258E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4593789-422C-4D76-A045-A1283989258E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4593789-422C-4D76-A045-A1283989258E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4593789-422C-4D76-A045-A1283989258E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

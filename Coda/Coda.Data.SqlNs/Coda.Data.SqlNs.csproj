@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Copyright>Cedita</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <PackageId>Coda.Data.Sql</PackageId>
+    <PackageTags>helpers,coda,cedita,http,transport,data,entityframework,dapper,sql,netstandard,bulk</PackageTags>
+    <Title>Coda SQL</Title>
+    <Authors>Cedita Ltd;Rudi Visser;Lee Turver</Authors>
+    <Company>Cedita Ltd</Company>
+    <CodeAnalysisRuleSet>..\Cedita.ruleset</CodeAnalysisRuleSet>
+    <PackageIconUrl>https://www.cedita.com/nuget_coda.png</PackageIconUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://www.github.com/cedita/Coda</RepositoryUrl>
+    <Version>1.0</Version>
+    <Summary>Coda - SQL Extensions</Summary>
+    <Description>Coda.Data.Sql provides helpers for working with SqlConnections on a bulk basis by providing Bulk Loading / Insertion Capabilities. Continually updated with new features and bugfixes as necessary, commercially supported from Cedita.</Description>
+    <PackageProjectUrl>https://www.github.com/cedita/Coda</PackageProjectUrl>
+    <Copyright>Cedita</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="1.50.4" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta006">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
+  </ItemGroup>
+</Project>

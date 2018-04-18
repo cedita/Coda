@@ -1,7 +1,7 @@
 {
   "settings": {
     "documentationRules": {
-      "companyName": "Cedita Digital Ltd",
+      "companyName": "Cedita Ltd",
       "copyrightText": "Copyright (c) {companyName}. All rights reserved.\r\nLicensed under the {licenseName} license. See {licenseFile} in the solution root for license information.",
 
       "documentInterfaces": true,
