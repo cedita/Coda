@@ -48,10 +48,18 @@ namespace Coda.Data.Sql
             {
                 var nullableBaseType = Nullable.GetUnderlyingType(property.PropertyType);
                 var baseType = nullableBaseType ?? property.PropertyType;
-                if (!IsMappable(property)) continue;
+                if (!IsMappable(property)) {
+                    continue;
+                }
+
+                var mapType = nullableBaseType != null ? typeof(string) : baseType;
+                if (baseType.IsEnum)
+                {
+                    mapType = baseType.GetEnumUnderlyingType();
+                }
 
                 // If it's nullable as a base then the type used for mapping should be a string
-                InternalTable.Columns.Add(property.Name, nullableBaseType != null ? typeof(string) : baseType);
+                InternalTable.Columns.Add(property.Name, mapType);
             }
 
             // Remap all of the columns by name
