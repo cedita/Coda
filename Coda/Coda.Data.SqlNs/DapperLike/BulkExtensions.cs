@@ -34,5 +34,11 @@ namespace Coda.Data.Sql.DapperLike
             using (var bulkLoader = new BulkLoader<TIdType>(db))
                 return bulkLoader.QueryBulk(query, ids, param);
         }
+
+        public static void ExecuteBulk<TIdType>(this SqlConnection db, string query, TIdType[] ids, object param = null)
+        {
+            using (var bulkLoader = new BulkLoader<TIdType>(db))
+                bulkLoader.ExecuteBulk(query, ids, param);
+        }
     }
 }

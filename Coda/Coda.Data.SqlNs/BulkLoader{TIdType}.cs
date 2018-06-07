@@ -40,5 +40,16 @@ namespace Coda.Data.Sql
             CreateTempWithIds(ids);
             return Connection.Query(query, param, transaction: Transaction);
         }
+
+        /// <summary>
+        /// Executes a bulk query
+        /// </summar>
+        /// <param name="query"></param>
+        /// <param name="ids"></param>
+        public void ExecuteBulk(string query, TIdType[] ids, object param = null)
+        {
+            CreateTempWithIds(ids);
+            Connection.Execute(query, param, transaction: Transaction);
+        }
     }
 }
