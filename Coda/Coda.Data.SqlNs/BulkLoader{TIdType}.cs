@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Cedita Ltd. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the solution root for license information.
-using Dapper;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using Dapper;
 
 namespace Coda.Data.Sql
 {
@@ -19,10 +19,6 @@ namespace Coda.Data.Sql
         /// <summary>
         /// Executes a bulk query, returning the data typed as per T
         /// </summary>
-        /// <typeparam name="TResultType"></typeparam>
-        /// <param name="query"></param>
-        /// <param name="ids"></param>
-        /// <returns></returns>
         public IEnumerable<TResultType> QueryBulk<TResultType>(string query, TIdType[] ids, object param = null)
         {
             CreateTempWithIds(ids);
@@ -32,9 +28,6 @@ namespace Coda.Data.Sql
         /// <summary>
         /// Executes a bulk query, returning the data typed dynamically with properties matching the columns
         /// </summary>
-        /// <param name="query"></param>
-        /// <param name="ids"></param>
-        /// <returns></returns>
         public IEnumerable<dynamic> QueryBulk(string query, TIdType[] ids, object param = null)
         {
             CreateTempWithIds(ids);
@@ -44,12 +37,11 @@ namespace Coda.Data.Sql
         /// <summary>
         /// Executes a bulk query
         /// </summar>
-        /// <param name="query"></param>
-        /// <param name="ids"></param>
         public void ExecuteBulk(string query, TIdType[] ids, object param = null)
         {
             CreateTempWithIds(ids);
             Connection.Execute(query, param, transaction: Transaction);
+            Transaction.Commit();
         }
     }
 }
