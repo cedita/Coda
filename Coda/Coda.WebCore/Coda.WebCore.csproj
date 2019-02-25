@@ -14,7 +14,7 @@
     <PackageIconUrl>https://www.cedita.com/nuget_coda.png</PackageIconUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://www.github.com/cedita/Coda</RepositoryUrl>
-    <Version>0.1.0.0-pre</Version>
+    <Version>0.1.1-pre</Version>
     <Summary>Coda - ASP.NET Core Web Extensions</Summary>
     <Description>Coda.WebCore provides a series of extensions and tag helpers to aid the ASP.NET Core MVC Development cycle. Continually updated with new features and bugfixes as necessary, commercially supported from Cedita.</Description>
     <PackageProjectUrl>https://www.github.com/cedita/Coda</PackageProjectUrl>
