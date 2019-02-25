@@ -30,6 +30,9 @@ namespace Coda.Data.Sql
 
         protected virtual bool IsMappable(PropertyInfo property)
         {
+            if (property.CustomAttributes.Any(m => m.AttributeType.Name == nameof(DbIgnoreAttribute)))
+                return false;
+
             var nullableBaseType = Nullable.GetUnderlyingType(property.PropertyType);
             var baseType = nullableBaseType ?? property.PropertyType;
             return (_mappableTypes.Contains(baseType) || baseType.IsEnum);
