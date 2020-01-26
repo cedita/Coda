@@ -39,6 +39,5 @@ namespace Coda.WebCore.TagHelpers
                 return string.Equals(optionVal, matchVal, StringComparison.InvariantCultureIgnoreCase);
             });
         }
-
     }
 }

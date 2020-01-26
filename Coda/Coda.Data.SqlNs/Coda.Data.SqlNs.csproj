@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Copyright>Cedita</Copyright>
+    <Copyright>Cedita Ltd</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
     <PackageId>Coda.Data.Sql</PackageId>
     <PackageTags>helpers,coda,cedita,http,transport,data,entityframework,dapper,sql,netstandard,bulk</PackageTags>
     <Title>Coda SQL</Title>
-    <Authors>Cedita Ltd;Rudi Visser;Lee Turver</Authors>
+    <Authors>Cedita Ltd</Authors>
     <Company>Cedita Ltd</Company>
     <CodeAnalysisRuleSet>..\Cedita.ruleset</CodeAnalysisRuleSet>
     <PackageIconUrl>https://www.cedita.com/nuget_coda.png</PackageIconUrl>

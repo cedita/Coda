@@ -4,7 +4,7 @@
     <PackageId>Coda.Cache</PackageId>
     <PackageTags>helpers,coda,cedita,cache</PackageTags>
     <Title>Coda Cache Extensions</Title>
-    <Authors>Cedita Ltd;Cedita Digital Ltd;Rudi Visser;Lee Turver</Authors>
+    <Authors>Cedita Ltd</Authors>
     <Company>Cedita Ltd</Company>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -15,7 +15,7 @@
     <Version>0.0.2.0-pre</Version>
     <Description>Coda Cache provides a layer atop of Microsoft.Extensions.Caching to manage entries into the Cache more effectively.</Description>
     <PackageProjectUrl>https://www.github.com/cedita/Coda</PackageProjectUrl>
-    <Copyright>Cedita</Copyright>
+    <Copyright>Cedita Ltd</Copyright>
     <AssemblyVersion>0.0.2.0</AssemblyVersion>
     <FileVersion>0.0.2.0</FileVersion>
   </PropertyGroup>
