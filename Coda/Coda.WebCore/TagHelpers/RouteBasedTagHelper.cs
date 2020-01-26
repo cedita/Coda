@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Cedita Ltd. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the solution root for license information.
 using System;
+using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
@@ -29,14 +30,24 @@ namespace Coda.WebCore.TagHelpers
             AddComparison(qualifier, () =>
             {
                 var optionVal = httpContextAccessor.HttpContext.GetRouteValue(option.ToString().ToLower()) as string;
-                var matchVal = matchTo();
 
-                if (option == RouteOption.Page && matchVal[0] != '/')
+                // Supporting multiple values, split by ;
+                var matchVals = matchTo()
+                    .Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+                // Sanitise for Razor Page
+                if (option == RouteOption.Page)
                 {
-                    matchVal = "/" + matchVal;
+                    for (int i = 0; i < matchVals.Length; i++)
+                    {
+                        if (matchVals[i][0] != '/')
+                        {
+                            matchVals[i] = "/" + matchVals[i];
+                        }
+                    }
                 }
 
-                return string.Equals(optionVal, matchVal, StringComparison.InvariantCultureIgnoreCase);
+                return matchVals.Any(m => string.Equals(optionVal, m, StringComparison.InvariantCultureIgnoreCase));
             });
         }
     }

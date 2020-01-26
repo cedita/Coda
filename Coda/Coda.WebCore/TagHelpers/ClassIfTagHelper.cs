@@ -3,6 +3,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Microsoft.Extensions.Options;
 
 namespace Coda.WebCore.TagHelpers
 {
@@ -11,18 +12,22 @@ namespace Coda.WebCore.TagHelpers
     {
         private const string TagAttribute = "class-if-*";
 
-        public ClassIfTagHelper(IHttpContextAccessor httpContextAccessor)
+        public ClassIfTagHelper(IHttpContextAccessor httpContextAccessor, IOptions<WebCoreTagHelperOptions> options)
             : base(httpContextAccessor)
         {
+            ClassIfOperator = options.Value.DefaultOperatorMode;
+            ClassIfMode = options.Value.DefaultComparisonMode;
+            ClassIfValue = options.Value.DefaultClassIfClass;
+
             AddRouteMatch(RouteOption.Area, () => !string.IsNullOrWhiteSpace(ClassIfArea), () => ClassIfArea);
             AddRouteMatch(RouteOption.Controller, () => !string.IsNullOrWhiteSpace(ClassIfController), () => ClassIfController);
             AddRouteMatch(RouteOption.Action, () => !string.IsNullOrWhiteSpace(ClassIfAction), () => ClassIfAction);
             AddRouteMatch(RouteOption.Page, () => !string.IsNullOrWhiteSpace(ClassIfPage), () => ClassIfPage);
         }
 
-        public IfOperatorMode ClassIfOperator { get; set; } = IfOperatorMode.Or;
+        public IfOperatorMode ClassIfOperator { get; set; }
 
-        public IfComparisonMode ClassIfMode { get; set; } = IfComparisonMode.Match;
+        public IfComparisonMode ClassIfMode { get; set; }
 
         public string ClassIfValue { get; set; }
 

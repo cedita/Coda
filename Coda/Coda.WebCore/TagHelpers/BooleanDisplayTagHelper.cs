@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿// Copyright (c) Cedita Ltd. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE in the solution root for license information.
+using Microsoft.AspNetCore.Razor.TagHelpers;
+using Microsoft.Extensions.Options;
 
 namespace Coda.WebCore.TagHelpers
 {
@@ -7,14 +10,17 @@ namespace Coda.WebCore.TagHelpers
     {
         private const string TagAttribute = "render-if-matches";
 
-        public BooleanDisplayTagHelper()
+        public BooleanDisplayTagHelper(IOptions<WebCoreTagHelperOptions> options)
         {
+            RenderIfOperator = options.Value.DefaultOperatorMode;
+            RenderIfMode = options.Value.DefaultComparisonMode;
+
             AddComparison(() => RenderIfMatches != null, () => RenderIfMatches.Value);
         }
 
-        public IfOperatorMode RenderIfOperator { get; set; } = IfOperatorMode.Or;
+        public IfOperatorMode RenderIfOperator { get; set; }
 
-        public IfComparisonMode RenderIfMode { get; set; } = IfComparisonMode.Match;
+        public IfComparisonMode RenderIfMode { get; set; }
 
         public bool? RenderIfMatches { get; set; }
 

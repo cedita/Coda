@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the solution root for license information.
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Microsoft.Extensions.Options;
 
 namespace Coda.WebCore.TagHelpers
 {
@@ -10,18 +11,21 @@ namespace Coda.WebCore.TagHelpers
     {
         private const string TagAttribute = "remove-if-*";
 
-        public RemoveIfTagHelper(IHttpContextAccessor httpContextAccessor)
+        public RemoveIfTagHelper(IHttpContextAccessor httpContextAccessor, IOptions<WebCoreTagHelperOptions> options)
             : base(httpContextAccessor)
         {
+            RemoveIfOperator = options.Value.DefaultOperatorMode;
+            RemoveIfMode = options.Value.DefaultComparisonMode;
+
             AddRouteMatch(RouteOption.Area, () => !string.IsNullOrWhiteSpace(RemoveIfArea), () => RemoveIfArea);
             AddRouteMatch(RouteOption.Controller, () => !string.IsNullOrWhiteSpace(RemoveIfController), () => RemoveIfController);
             AddRouteMatch(RouteOption.Action, () => !string.IsNullOrWhiteSpace(RemoveIfAction), () => RemoveIfAction);
             AddRouteMatch(RouteOption.Page, () => !string.IsNullOrWhiteSpace(RemoveIfPage), () => RemoveIfPage);
         }
 
-        public IfOperatorMode RemoveIfOperator { get; set; } = IfOperatorMode.Or;
+        public IfOperatorMode RemoveIfOperator { get; set; }
 
-        public IfComparisonMode RemoveIfMode { get; set; } = IfComparisonMode.Match;
+        public IfComparisonMode RemoveIfMode { get; set; }
 
         public string RemoveIfController { get; set; }
 

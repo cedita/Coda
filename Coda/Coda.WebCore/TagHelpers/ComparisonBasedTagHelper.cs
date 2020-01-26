@@ -9,7 +9,7 @@ namespace Coda.WebCore.TagHelpers
 {
     public abstract class ComparisonBasedTagHelper : TagHelper
     {
-        protected List<(Func<bool> qualifier, Func<bool> comparison)> Comparisons = new List<(Func<bool>, Func<bool>)>();
+        protected List<(Func<bool> qualifier, Func<bool> comparison)> comparisons = new List<(Func<bool>, Func<bool>)>();
 
         protected ComparisonBasedTagHelper()
             : base()
@@ -18,12 +18,12 @@ namespace Coda.WebCore.TagHelpers
 
         protected void AddComparison(Func<bool> qualifier, Func<bool> result)
         {
-            Comparisons.Add((qualifier, result));
+            comparisons.Add((qualifier, result));
         }
 
         protected IEnumerable<bool> MakeComparisons()
         {
-            var results = Comparisons
+            var results = comparisons
                 .Where(m => m.qualifier())
                 .Select(m => m.comparison());
             return results;
